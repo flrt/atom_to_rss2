@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <id>https://www.opikanoba.org/feeds/test/1</id>
+  <title>Sample Test Feed</title>
+  <subtitle>Atom Feed</subtitle>
+  <link href="https://www.opikanoba.org/tests" rel="related"/>
+  <link href="https://www.opikanoba.org/feeds/test.xml" rel="self"/>
+  <updated>2017-11-03T16:55:03.198512+00:00</updated>
+  <author>
+    <name>Frederic LAURENT</name>
+    <email>frederic.laurent@gmail.com</email>
+  </author>
+  <category term="test,feed"/>
+  <generator uri="https://github.com/flrt" version="1.0">app</generator>
+  <rights>CC BY-SA 3.0 FR</rights>
+  <entry>
+    <title>Version 99</title>
+    <link href="http://www.opikanoba.org/test/no.pdf" rel="related" type="application/pdf"/>
+    <id>urn:feed:test:v99</id>
+    <content type="xhtml">
+      <div xmlns="http://www.w3.org/1999/xhtml">
+        <article>
+          <div>
+            <h1>Title</h1>
+            <p>blablabla</p>
+          </div>
+        </article>
+      </div>
+    </content>
+    <updated>2017-11-03T16:55:02.786435+00:00</updated>
+    <summary>Test 99 available</summary>
+  </entry>
+</feed>

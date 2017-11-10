@@ -72,16 +72,8 @@
                         <xsl:apply-templates select="atom:author" mode="email"/>
                     </managingEditor>
                 </xsl:if>
-                <pubDate>
-                    <xsl:call-template name="dateFRC822">
-                        <xsl:with-param name="d" select="atom:updated"/>
-                    </xsl:call-template>
-                </pubDate>
-                <lastBuildDate>
-                    <xsl:call-template name="dateFRC822">
-                        <xsl:with-param name="d" select="atom:updated"/>
-                    </xsl:call-template>
-                </lastBuildDate>
+                <pubDate><xsl:apply-templates select="atom:updated"/></pubDate>
+                <lastBuildDate><xsl:apply-templates select="atom:updated"/></lastBuildDate>
                 <xsl:if test="@xml:lang">
                     <language>
                         <xsl:value-of select="@xml:lang"/>
@@ -173,11 +165,7 @@
             <guid>
                 <xsl:value-of select="atom:id/text()"/>
             </guid>
-            <pubDate>
-                <xsl:call-template name="dateFRC822">
-                    <xsl:with-param name="d" select="atom:updated"/>
-                </xsl:call-template>
-            </pubDate>
+            <pubDate><xsl:apply-templates select="atom:updated"/></pubDate>
             <xsl:choose>
                 <xsl:when test="atom:source/atom:id and atom:source/atom:title">
                     <source url="{atom:source/atom:id/text()}">
@@ -223,12 +211,9 @@
         OUT : SAT, 11 Nov 2017 16:55:03 +0000
     -->
 
-    <xsl:template name="dateFRC822">
-        <xsl:param name="d"/>
-
+    <xsl:template match="atom:updated">
         <xsl:value-of
-            select="format-dateTime(xs:dateTime($d), '[FNn,*-3], [D] [MNn,*-3] [Y] [H00]:[m00]:[s00] [Z0000]', 'en', (), ())"
-        />
+            select="format-dateTime(xs:dateTime(.), '[FNn,*-3], [D00] [MNn,*-3] [Y] [H00]:[m00]:[s00] [Z0000]', 'en', (), ())"/>
     </xsl:template>
     
     <!-- 

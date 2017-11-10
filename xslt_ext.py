@@ -3,7 +3,6 @@
 """
     Transform Atom v1 Feed to RSS v2 using XSLT (ElementTree)
 
-
 """
 __author__ = 'Frederic Laurent'
 __version__ = "1.0"

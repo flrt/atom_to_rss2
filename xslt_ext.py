@@ -12,8 +12,11 @@ __license__ = "MIT"
 
 import os.path
 import re
+import sys
 
 from lxml import etree
+
+sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
 
 import etree_formatdt
 

@@ -10,6 +10,7 @@ __copyright__ = 'Copyright 2017, Frederic Laurent'
 __license__ = "MIT"
 
 import argparse
+import codecs
 import os.path
 import xslt_ext
 from lxml import etree

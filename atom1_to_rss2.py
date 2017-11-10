@@ -16,6 +16,7 @@ from lxml import etree
 
 from __init__ import *
 
+ENCODING = 'utf-8'
 
 def main():
     parser = argparse.ArgumentParser()
@@ -36,12 +37,13 @@ def main():
 
     if args.atom is not None and os.path.exists(args.atom):
         result_xml = proc.transform(etree.parse(args.atom))
+        data = etree.tostring(result_xml, encoding=ENCODING, xml_declaration=True, pretty_print=True)
 
         if args.rss2 is not None:
-            with open(args.rss2, "w") as fout:
-                fout.write(etree.tostring(result_xml, pretty_print=True))
+            with codecs.open(args.rss2, "w", ENCODING) as fout:
+                fout.write(data.decode(ENCODING))
         else:
-            print(etree.tostring(result_xml, pretty_print=True))
+            print(data)
 
 
 if __name__ == "__main__":

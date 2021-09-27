@@ -14,7 +14,7 @@ import unittest
 
 from lxml import etree
 
-import xslt_ext
+from atomtorss2 import xslt_ext
 
 
 class PrefixResolver(etree.Resolver):

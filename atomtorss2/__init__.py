@@ -9,4 +9,6 @@ __version__ = "1.0"
 __copyright__ = 'Copyright 2017, Frederic Laurent'
 __license__ = "MIT"
 
-DEFAULT_XSLT_FILE = 'atom1_to_rss2_pyext.xsl'
+import os.path
+
+DEFAULT_XSLT_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'atom1_to_rss2_pyext.xsl')

@@ -17,7 +17,7 @@ from lxml import etree
 
 sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
 
-import etree_formatdt
+from atomtorss2 import etree_formatdt
 
 
 class ImportLocalResolver(etree.Resolver):

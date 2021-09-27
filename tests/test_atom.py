@@ -14,9 +14,9 @@ import re
 import unittest
 
 from lxml import etree
-
-import xslt_ext
-
+import io
+from atomtorss2 import xslt_ext
+from atomtorss2 import atom1_to_rss2_xslpy
 
 class PrefixResolver(etree.Resolver):
     def __init__(self, rootdir, *args, **kwargs):
@@ -38,7 +38,7 @@ class PrefixResolver(etree.Resolver):
 class TestXSLT(unittest.TestCase):
     def test_transform_atom_include_resolver(self):
         filedir = os.path.dirname(os.path.abspath(__file__))
-        filedirxsl = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
+        filedirxsl = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'atomtorss2'))
 
         xml1_fn = os.path.join(filedir, 'atom_instance.xml')
 
@@ -57,14 +57,40 @@ class TestXSLT(unittest.TestCase):
         self.assertEqual(etree.tostring(result_xml, encoding='UTF-8', pretty_print=True, xml_declaration=True),
                          etree.tostring(xml2, encoding='UTF-8', pretty_print=True, xml_declaration=True))
 
+
     def test_transform_atom_include_sample(self):
+        filedir = os.path.dirname(os.path.abspath(__file__))
+        filedirxsl = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'atomtorss2'))
+        print(f" DIR XSL {filedirxsl}")
+        xml1_fn = os.path.join(filedir, 'atom_instance.xml')
+
+        # Process
+        xslt = etree.parse(os.path.join(filedirxsl, 'atom1_to_rss2_pyext.xsl'))
+        print(f" >>> {os.path.join(filedirxsl, 'atom1_to_rss2_pyext.xsl')}")
+        print(f" >>> {xslt}")
+
+        proc = xslt_ext.DateFormatterProcessor()
+        proc.load_xslt(os.path.join(filedirxsl, 'atom1_to_rss2_pyext.xsl'))
+        result_xml = proc.transform(etree.parse(xml1_fn))
+
+        # check
+        xmlexpected_fn = os.path.join(filedir, 'rss2_from_xslt1_expected.xml')
+        xml2 = etree.parse(xmlexpected_fn)
+
+        self.assertEqual(etree.tostring(result_xml, encoding='UTF-8', pretty_print=True, xml_declaration=True),
+                         etree.tostring(xml2, encoding='UTF-8', pretty_print=True, xml_declaration=True))
+
+
+    def test_transform_atom_nofile(self):
         filedir = os.path.dirname(os.path.abspath(__file__))
         xml1_fn = os.path.join(filedir, 'atom_instance.xml')
 
         # Process
-        xslt_filename = os.path.abspath(os.path.join(filedir, '../atom1_to_rss2_pyext.xsl'))
-        proc = xslt_ext.DateFormatterProcessor()
-        proc.load_xslt(xslt_filename)
+        #txt = bytes(bytearray(atom1_to_rss2_xslpy.xslt, encoding='utf-8'))
+        xslt = etree.parse(io.StringIO(atom1_to_rss2_xslpy.xslt))
+        #xslt = etree.parse(txt)
+
+        proc = xslt_ext.DateFormatterProcessor(xslt)
         result_xml = proc.transform(etree.parse(xml1_fn))
 
         # check

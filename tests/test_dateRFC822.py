@@ -10,7 +10,7 @@ __copyright__ = 'Copyright 2017, Frederic Laurent'
 __license__ = "MIT"
 
 import unittest
-import etree_formatdt
+from atomtorss2 import etree_formatdt
 
 
 class TestDateFRC822(unittest.TestCase):
